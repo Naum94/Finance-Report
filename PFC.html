@@ -2,13 +2,21 @@
 <html>
 <head>
 	<meta charset="UTF-8">
+	<!-- Load from CDN-->
 	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 
+	<!-- Load from locally -->
+	<link rel="stylesheet" href="css/bootstrap.min.css">
+	<script src="js/jquery.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+
 	<title>Personal Finance Calculator</title>
+
 	<style>
 		body{
 			margin: 0;
@@ -50,14 +58,13 @@
 		#proc{
 			width: 100px;
 		}
-
 	</style>
 </head>
 <body>
 	  <h3>Personal Finance Calculator</h3>
 <div class="container">
 	<div class="row">
-		<div class="col-md-12 col-lg-6 col-xl-5">
+		<div class="col-md-12 col-lg-6 col-xl-5 mt-4">
 			<form>
 				
 				<table>
@@ -88,18 +95,18 @@
 				</table>
 				
 				<br>
-<input class="btn-primary rounded" type="button" value="Convert to Euros" onclick="Cvte();"> &nbsp
-<input class="btn-primary rounded" type="button" value="Convert to Denars" onclick="Cvtd();"> &nbsp
-<input class="btn-success rounded" type="button" value="Show Report" onclick="Reporting();">
+<input class="btn-primary rounded border-0" type="button" value="Convert to Euros" onclick="Cvte();"> &nbsp
+<input class="btn-primary rounded border-0" type="button" value="Convert to Denars" onclick="Cvtd();"> &nbsp
+<input class="btn-success rounded border-0" type="button" value="Show Report" onclick="Reporting();">
 </form>
 </div>
-<div class="col-md-12 col-lg-6 col-xl-7">
+<div class="col-md-12 col-lg-6 col-xl-7 mt-4">
 <div id="finrep" class="text-success"></div>
 </div>
 </div>
 </div>
 <footer>
-	<span>Copyright &copy; Naum Ivanovski</span>
+	<span>&copy; Copyright made by Naum Ivanovski</span>
 </footer>
 
 <script>
@@ -110,7 +117,7 @@
   var report = document.getElementById("finrep");
   var procents = document.getElementById("proc");
   
- function  Cvte(){
+ function Cvte(){
    var tmp = denars.value;
    var mult = 61.5;
    var money = tmp / mult;
@@ -130,9 +137,6 @@
 	var proceur = (euro.value / 100) * procents.value;
 	var tmpe = proceur.toFixed(0) * months.value;
 	report.innerHTML ="<h4>Financial Report for " + months.value +" months where saving rate is " + procents.value + "% per month.</h4><hr> " + tmpd + " MKD saved.<br><hr> " + tmpe +" Euros saved. ";
-
-	
-	
  }
 
 </script>
