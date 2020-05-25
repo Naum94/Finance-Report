@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<!-- Load from CDN-->
+	<link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+	<title>Personal Finance Calculator</title>
+
+	<style>
+		body{ margin: 0; padding: 0; font-family: 'Roboto', sans-serif; background-color: rgb(40, 40 ,40); color:white; font-weight: bold; }
+		th{ text-align: right; padding-right: 5px; }
+	 	form{ text-align: left; width: 550px; border-radius: 25px; padding: 10px;}
+		footer{ width:100%; padding-top: 10px; padding-bottom: 10px; position: absolute; bottom: 0; color: white; background-color: black; text-align: center; }
+		.btn-custom { margin-left: 5px; width: 140px; }
+		input[type=number]{background-color:rgb(60, 60 ,60); color:white; }
+		input[type=number]:focus{box-shadow: none; background-color:rgb(60, 60 ,60); color: #ffc107; border: 2px solid #ffc107;}
+		input[type=button]:focus{box-shadow: none;}
+		hr{ background-color: white;}
+		nav{ background-color: black; color:white;}
+		.table-bg{background-color: rgb(60, 60 ,60); border-radius: 25px;}	
+	</style>
+</head>
+<body>
+	<nav class="navbar navbar-expand-lg">
+		<h3 class="font-weight-bold">Personal Finance Calculator</h3>
+	</nav> 
+<div class="container-fluid">	
+	<div class="row">
+		<div class="col-md-12 col-lg-6 col-xl-5 mt-4">
+			<form class="table-bg">	
+				<table>
+					<tr>
+						<th>Amount in MKD:</th>
+						<td>
+							<input class="rounded form-control" type="number" id="den" min='0' />
+						</td>
+						<td>
+							<input class="btn btn-outline-warning rounded btn-custom" type="button" value="Convert to &euro;" onclick="Convert2Euros();">
+						</td>
+					</tr>
+					<tr>	
+						<th>Amount in &euro;:</th>
+						<td>
+							<input class="rounded form-control" type="number" id="euro" min="0" />
+						</td>
+						<td>
+							<input class="btn btn-outline-warning btn-custom rounded" type="button" value="Convert to MKD" onclick="Convert2Denars();">
+						</td>
+					</tr>
+					<tr>
+						<th>Number of months:</th>
+						<td>
+							<input class="rounded form-control" type="number" id="month" min="0" />
+						</td>
+						<td></td>
+					</tr>
+					<tr>						
+						<th>Precentage:</th>
+						<td>
+							<div class="input-group mb-1">
+								<input class="rounded form-control" id="proc" type="number" min="1" max="100" />
+									<div class="input-group-append">
+										<span class="input-group-text">%</span>
+									</div>
+							</div>
+						</td>
+						<td>
+							
+						</td>	
+					</tr>
+					<tr>
+						<td colspan="3" class="text-center mt-3">
+							<input class="btn btn-outline-success rounded" type="button" value="Calculate" onclick="showReport();">
+						</td>
+					</tr>
+				</table>
+				
+
+</form>
+</div>
+<div class="col-md-12 col-lg-6 col-xl-7 mt-4">
+	<div id="finrep"></div>
+</div>
+</div>
+</div>
+<footer>
+	<span>&copy; Copyright made by Naum Ivanovski</span>
+</footer>
+
+<script>
+  
+  var denars = document.getElementById("den");
+  var euro = document.getElementById("euro");
+  var months = document.getElementById("month");
+  var report = document.getElementById("finrep");
+  var procents = document.getElementById("proc");
+  
+ function Convert2Euros(){
+   var tmp = denars.value;
+   var mult = 61.5;
+   var money = tmp / mult;
+	euro.value = money.toFixed(0);
+ }
+ 
+ function Convert2Denars(){
+     var tmp = euro.value;
+     var mult = 61.5;
+     var money = tmp * mult;
+	denars.value = money.toFixed(0);
+ }
+ 
+ function showReport(){
+	 if((denars.value < 0) || (euro.value < 0) || (procents.value < 0) || (months.value < 0))
+	 {
+		report.innerHTML = "<h4 class='text-danger'> Error!!! </h4>"
+	 }
+	 else{
+    	var procden = (denars.value / 100) * procents.value;
+ 		var tmpd = procden * months.value;
+		var proceur = (euro.value / 100) * procents.value;
+		var tmpe = proceur.toFixed(0) * months.value;
+		report.innerHTML ="<h4 class='text-success'>Financial Report for " + months.value +" months where saving rate is " + procents.value + "% per month.</h4><hr> " + tmpd + " MKD saved.<br> " + tmpe +" &euro; saved.<hr> ";
+	 }
+ }
+
+</script>
+</body>
+</html>
